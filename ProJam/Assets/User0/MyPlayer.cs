@@ -5,8 +5,8 @@ using UnityEngine;
 public class MyPlayer : MonoBehaviour
 {
     Rigidbody rb;
-    public float movementSpeed = 7.0f;
-    Vector3 move = Vector3.zero;
+    public float movementSpeed = 3.0f;
+    Vector3 movement = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,30 +14,48 @@ public class MyPlayer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.W))
+
+        readInput();   
+    }
+
+    void characterMovement(Vector3 move)
+    {
+        rb.MovePosition((Vector3)transform.position + move * Time.deltaTime * movementSpeed * 2);
+    }
+
+    void readInput()
+    {
+        if (Input.GetKey(KeyCode.W))
         {
-            Debug.Log("Forward");
-            move += Vector3.forward;
+            Debug.Log("f");
+            movement.z = 1;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
-            Debug.Log("Back");
-            move += Vector3.back;
+            movement.z = -1;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        else if (!Input.GetKeyDown(KeyCode.S) && !Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("Right");
-            move += Vector3.right;
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("Left");
-            move += Vector3.left;
+            movement.z = 0;
         }
 
-        rb.MovePosition((Vector3)transform.position + move * Time.deltaTime * movementSpeed);
-        //move = Vector3.zero;
+        if (Input.GetKey(KeyCode.D))
+        {
+            Debug.Log("r");
+            movement.x = 1;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            Debug.Log("l");
+            movement.x = -1;
+        }
+        else if (!Input.GetKeyDown(KeyCode.D) && !Input.GetKeyDown(KeyCode.A))
+        {
+            movement.x = 0;
+        }
+        Debug.Log(movement);
+        characterMovement(movement);
     }
 }
