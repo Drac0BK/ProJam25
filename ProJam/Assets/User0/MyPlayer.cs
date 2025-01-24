@@ -28,7 +28,6 @@ public class MyPlayer : MonoBehaviour
 
         if (Input.GetKey(KeyCode.P))
         {
-            Debug.Log("P");
             StartCoroutine("capturedPlayer");
         }
     }
@@ -42,7 +41,6 @@ public class MyPlayer : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            Debug.Log("f");
             movement.z = 1;
         }
         else if (Input.GetKey(KeyCode.S))
@@ -56,19 +54,16 @@ public class MyPlayer : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
         {
-            Debug.Log("r");
             movement.x = 1;
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            Debug.Log("l");
             movement.x = -1;
         }
         else if (!Input.GetKeyDown(KeyCode.D) && !Input.GetKeyDown(KeyCode.A))
         {
             movement.x = 0;
         }
-        Debug.Log(movement);
         characterMovement(movement);
     }
 
@@ -76,8 +71,10 @@ public class MyPlayer : MonoBehaviour
     {
         isCaptured = true;
         yield return new WaitForSeconds(1);
-        if(lastCheck != null)
-        transform.position = lastCheck.transform.position + new Vector3(0,0.5f,0);
+        if (lastCheck != null)
+            transform.position = lastCheck.transform.position + new Vector3(0, 0.5f, 0);
+        else
+            transform.position = new Vector3(0,1,0);
         isCaptured = false;
 
     }
