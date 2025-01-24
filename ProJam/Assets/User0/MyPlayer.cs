@@ -6,18 +6,31 @@ public class MyPlayer : MonoBehaviour
 {
     Rigidbody rb;
     public float movementSpeed = 3.0f;
+    public GameObject lastCheck;
     Vector3 movement = Vector3.zero;
+    bool isCaptured = false;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
+    
+    public void SetCheckpoint(GameObject m_check) { lastCheck = m_check; }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!isCaptured)
+        {
+            readInput();
+        }
 
-        readInput();   
+        if (Input.GetKey(KeyCode.P))
+        {
+            Debug.Log("P");
+            StartCoroutine("capturedPlayer");
+        }
     }
 
     void characterMovement(Vector3 move)
@@ -57,5 +70,15 @@ public class MyPlayer : MonoBehaviour
         }
         Debug.Log(movement);
         characterMovement(movement);
+    }
+
+    public IEnumerator capturedPlayer()
+    {
+        isCaptured = true;
+        yield return new WaitForSeconds(1);
+        if(lastCheck != null)
+        transform.position = lastCheck.transform.position + new Vector3(0,0.5f,0);
+        isCaptured = false;
+
     }
 }
