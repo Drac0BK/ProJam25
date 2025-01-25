@@ -9,7 +9,10 @@ public class MyPlayer : MonoBehaviour
     public GameObject lastCheck;
     Vector3 movement = Vector3.zero;
     bool isCaptured = false;
-
+    public Material trojanMaterial;
+    public Material phishingMaterial;
+    public Material normalMaterial;
+    bool isInteracting = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +33,37 @@ public class MyPlayer : MonoBehaviour
         {
             StartCoroutine("capturedPlayer");
         }
+        if (Input.GetKey(KeyCode.Y))
+        {
+            Debug.Log("Phishing Activate");
+            MeshRenderer mesh = GetComponent<MeshRenderer>();  
+            mesh.material = phishingMaterial;
+        }
+        if (Input.GetKey(KeyCode.T))
+        {
+            Debug.Log("Trojan Activate");
+            MeshRenderer mesh = GetComponent<MeshRenderer>();
+            mesh.material = trojanMaterial;
+        }
+        if (Input.GetKey(KeyCode.R))
+        {
+            Debug.Log("Normal Mode");
+            MeshRenderer mesh = GetComponent<MeshRenderer>();
+            mesh.material = phishingMaterial;
+        }
+
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.GetComponent<Interact>() != null && Input.GetKey(KeyCode.E) && !isInteracting)
+        {
+            other.GetComponent<Interact>().setCanvas(true);
+        }
+    }
+
+    //public bool getInteracting() { return isInteracting; }
+    //public void setInteracting(bool set) {  isInteracting = set; }
 
     void characterMovement(Vector3 move)
     {
@@ -39,6 +72,8 @@ public class MyPlayer : MonoBehaviour
 
     void readInput()
     {
+
+
         if (Input.GetKey(KeyCode.W))
         {
             movement.z = 1;
