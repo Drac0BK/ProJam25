@@ -4,28 +4,43 @@ using UnityEngine;
 
 public class Interact : MonoBehaviour
 {
-    float timer = 10;
+    float timer = 1;
 
     public GameObject canvas;
     bool setActive = false;
+    bool hasInteracted = false;
     public void setCanvas(bool m_b)   
     {
-        canvas.SetActive(m_b);
-        setActive = m_b;
-        timer = 10;
+        if (!hasInteracted)
+        {
+            if (setActive == false)
+            {
+                canvas.SetActive(true);
+                setActive = true;
+                hasInteracted = true;
+            }
+            else if (setActive == true)
+            {
+                canvas.SetActive(false);
+                setActive = false;
+                hasInteracted = true;
+            }
+            timer = 1;
+        }
     }
 
     private void Update()
     {
-        if (setActive)
+        if (hasInteracted)
         {
             timer -= Time.deltaTime;
             Debug.Log(timer);
         }
         if (timer < 0)
         {
-            timer = 10;
-            setCanvas(false);
+            timer = 1;
+            hasInteracted = false;
+            //setCanvas(false);
         }
     }
 }

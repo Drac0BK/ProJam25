@@ -22,8 +22,24 @@ public class MyPlayer : MonoBehaviour
     public void SetCheckpoint(GameObject m_check) { lastCheck = m_check; }
 
     // Update is called once per frame
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            transform.Rotate(0, 90, 0);
+            rb.rotation = transform.rotation;
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            transform.Rotate(0, -90, 0);
+            rb.rotation = transform.rotation;
+        }
+    }
+
     void FixedUpdate()
     {
+        Debug.Log(rb.rotation);
         if (!isCaptured)
         {
             readInput();
@@ -49,16 +65,25 @@ public class MyPlayer : MonoBehaviour
         {
             Debug.Log("Normal Mode");
             MeshRenderer mesh = GetComponent<MeshRenderer>();
-            mesh.material = phishingMaterial;
+            mesh.material = normalMaterial;
         }
 
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.GetComponent<Interact>() != null && Input.GetKey(KeyCode.E) && !isInteracting)
+        if (other.GetComponent<Interact>() != null && Input.GetKey(KeyCode.F) && !isInteracting)
         {
             other.GetComponent<Interact>().setCanvas(true);
+            MeshRenderer mesh = GetComponent<MeshRenderer>();
+            mesh.material = phishingMaterial;
+            isInteracting = true;
+        }
+        else
+        {
+            MeshRenderer mesh = GetComponent<MeshRenderer>();
+            mesh.material = normalMaterial;
+            isInteracting = false;
         }
     }
 
@@ -67,38 +92,39 @@ public class MyPlayer : MonoBehaviour
 
     void characterMovement(Vector3 move)
     {
-        rb.MovePosition((Vector3)transform.position + move * Time.deltaTime * movementSpeed * 2);
+        rb.MovePosition((Vector3)transform.position + (rb.rotation*move) * Time.deltaTime * movementSpeed * 2);
     }
 
     void readInput()
     {
-
-
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
-            movement.z = 1;
+            movement = Vector3.forward;
+            
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            movement.z = -1;
+            movement = Vector3.back;
         }
         else if (!Input.GetKeyDown(KeyCode.S) && !Input.GetKeyDown(KeyCode.W))
         {
             movement.z = 0;
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            movement.x = 1;
+            movement = Vector3.right;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            movement.x = -1;
+            movement = Vector3.left;
         }
         else if (!Input.GetKeyDown(KeyCode.D) && !Input.GetKeyDown(KeyCode.A))
         {
             movement.x = 0;
         }
+        
+        
         characterMovement(movement);
     }
 
