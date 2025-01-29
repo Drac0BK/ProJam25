@@ -10,8 +10,11 @@ public class MyPlayer : MonoBehaviour
     Vector3 movement = Vector3.zero;
     bool isCaptured = false;
     public Material trojanMaterial;
+    bool trojan = false;
     public Material phishingMaterial;
+    public bool phishing = false;
     public Material normalMaterial;
+    public bool normal = false;
     bool isInteracting = false;
     // Start is called before the first frame update
     void Start()
@@ -54,18 +57,24 @@ public class MyPlayer : MonoBehaviour
             Debug.Log("Phishing Activate");
             MeshRenderer mesh = GetComponent<MeshRenderer>();  
             mesh.material = phishingMaterial;
+            phishing = true;
+            trojan = false; normal = false;
         }
         if (Input.GetKey(KeyCode.T))
         {
             Debug.Log("Trojan Activate");
             MeshRenderer mesh = GetComponent<MeshRenderer>();
             mesh.material = trojanMaterial;
+            trojan = true;
+            normal = false; phishing = false;
         }
         if (Input.GetKey(KeyCode.R))
         {
             Debug.Log("Normal Mode");
             MeshRenderer mesh = GetComponent<MeshRenderer>();
             mesh.material = normalMaterial;
+            normal = true;
+            trojan = false; phishing = false;
         }
 
     }
@@ -99,12 +108,12 @@ public class MyPlayer : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
-            movement = Vector3.forward;
+            movement.z = Vector3.forward.z;
             
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            movement = Vector3.back;
+            movement.z = Vector3.back.z;
         }
         else if (!Input.GetKeyDown(KeyCode.S) && !Input.GetKeyDown(KeyCode.W))
         {
@@ -113,11 +122,11 @@ public class MyPlayer : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            movement = Vector3.right;
+            movement.x = Vector3.right.x;
         }
         else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            movement = Vector3.left;
+            movement.x = Vector3.left.x;
         }
         else if (!Input.GetKeyDown(KeyCode.D) && !Input.GetKeyDown(KeyCode.A))
         {

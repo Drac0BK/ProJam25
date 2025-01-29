@@ -617,6 +617,77 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e1c6012543c7c444f9cb367192167871, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b6b1134fe0962a4c95b44d81295e60a, type: 3}
+--- !u!1 &915939499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5964790418787069613, guid: 8b6b1134fe0962a4c95b44d81295e60a, type: 3}
+  m_PrefabInstance: {fileID: 915939498}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &915939500 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 852834536657292455, guid: 8b6b1134fe0962a4c95b44d81295e60a, type: 3}
+  m_PrefabInstance: {fileID: 915939498}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &915939501 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8857790724454429737, guid: 8b6b1134fe0962a4c95b44d81295e60a, type: 3}
+  m_PrefabInstance: {fileID: 915939498}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &915939502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915939499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b207d4f4fac644c98cb915ccef7618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canTurnOff: 1
+  loopTimer: 1
+--- !u!114 &915939503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915939500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b207d4f4fac644c98cb915ccef7618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canTurnOff: 0
+  loopTimer: 1
+--- !u!114 &915939504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915939501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b207d4f4fac644c98cb915ccef7618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canTurnOff: 0
+  loopTimer: 1
+--- !u!136 &915939508
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915939499}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: -0.0000038146973, y: 0, z: -0.000019073486}
 --- !u!1001 &1324927188
 PrefabInstance:
   m_ObjectHideFlags: 0
