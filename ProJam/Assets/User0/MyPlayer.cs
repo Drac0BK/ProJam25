@@ -10,19 +10,32 @@ public class MyPlayer : MonoBehaviour
     public GameObject lastCheck;
     Vector3 movement = Vector3.zero;
     bool isCaptured = false;
-    public Material trojanMaterial;
-    bool trojan = false;
-    public Material phishingMaterial;
-    public bool phishing = false;
+    public Material Seethrough;
     public Material normalMaterial;
     public bool normal = false;
+    public bool isTransformed = false;
     bool isInteracting = false;
+    MeshRenderer mesh;
+    public List<Sprite> trojanPics;
+    public List<Sprite> phishPics;
+    public 
+    float trojanF = 3;
+    float phishF = 3;
+
     // Start is called before the first frame update
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        mesh = GetComponent<MeshRenderer>();
     }
+
+    public void powerUpGot(int value) 
+    { 
+        if (value == 0) trojanF++;
+        else if (value == 1) phishF++;
+    }
+
     
     public void SetCheckpoint(GameObject m_check) { lastCheck = m_check; }
 
@@ -50,33 +63,13 @@ public class MyPlayer : MonoBehaviour
             readInput();
         }
 
-        if (Input.GetKey(KeyCode.P))
-        {
-            StartCoroutine("capturedPlayer");
-        }
-        if (Input.GetKey(KeyCode.Y))
-        {
-            Debug.Log("Phishing Activate");
-            MeshRenderer mesh = GetComponent<MeshRenderer>();  
-            mesh.material = phishingMaterial;
-            phishing = true;
-            trojan = false; normal = false;
-        }
+        //if (Input.GetKey(KeyCode.P))
+        //{
+        //    StartCoroutine("capturedPlayer");
+        //}
         if (Input.GetKey(KeyCode.T))
         {
-            Debug.Log("Trojan Activate");
-            MeshRenderer mesh = GetComponent<MeshRenderer>();
-            mesh.material = trojanMaterial;
-            trojan = true;
-            normal = false; phishing = false;
-        }
-        if (Input.GetKey(KeyCode.R))
-        {
-            Debug.Log("Normal Mode");
-            MeshRenderer mesh = GetComponent<MeshRenderer>();
-            mesh.material = normalMaterial;
-            normal = true;
-            trojan = false; phishing = false;
+            StartCoroutine("transformPlayer");
         }
 
     }
@@ -86,13 +79,10 @@ public class MyPlayer : MonoBehaviour
         if (other.GetComponent<Interact>() != null && Input.GetKey(KeyCode.F) && !isInteracting)
         {
             other.GetComponent<Interact>().setCanvas(true);
-            MeshRenderer mesh = GetComponent<MeshRenderer>();
-            mesh.material = phishingMaterial;
             isInteracting = true;
         }
         else
         {
-            MeshRenderer mesh = GetComponent<MeshRenderer>();
             mesh.material = normalMaterial;
             isInteracting = false;
         }
@@ -148,6 +138,24 @@ public class MyPlayer : MonoBehaviour
         else
             transform.position = new Vector3(0,1,0);
         isCaptured = false;
+
+    }
+    public IEnumerator transformPlayer()
+    {
+
+        isTransformed = true;
+        normal = false;
+
+
+        mesh.material = Seethrough;
+
+
+        yield return new WaitForSeconds(5);
+        
+        mesh.material = normalMaterial;
+
+        isTransformed= false;
+        normal = true;
 
     }
 }
