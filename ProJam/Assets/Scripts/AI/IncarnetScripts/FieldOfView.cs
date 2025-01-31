@@ -32,14 +32,14 @@ public class FieldOfView : MonoBehaviour
         
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {
-            Debug.Log(targetsInViewRadius[i].name + "Close");
+            //Debug.Log(targetsInViewRadius[i].name + "Close");
             // Get direction from target to this agent
             Transform target = targetsInViewRadius[i].transform;
             Vector3 dirToTarget = (target.position - transform.position).normalized;
             // Check if target is in field of view
             if (Vector3.Angle(transform.forward,dirToTarget) < viewAngle / 2)
             {
-                Debug.Log(targetsInViewRadius[i].name + "Detected");
+                //Debug.Log(targetsInViewRadius[i].name + "Detected");
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 // Raycast to see if target is obstructed
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget,obstacleMask))
