@@ -45,14 +45,14 @@ public class MyPlayer : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.E))
         {
-            transform.Rotate(0, 90, 0);
+            transform.Rotate(0, 0.5f, 0);
             rb.rotation = transform.rotation;
         }
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKey(KeyCode.Q))
         {
-            transform.Rotate(0, -90, 0);
+            transform.Rotate(0, -0.5f, 0);
             rb.rotation = transform.rotation;
         }
 
