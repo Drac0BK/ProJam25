@@ -1,12 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MyPlayer : MonoBehaviour
 {
     Rigidbody rb;
-    public float movementSpeed = 3.0f;
+    public float movementSpeed = 10.0f;
     public GameObject lastCheck;
     Vector3 movement = Vector3.zero;
     bool isCaptured = false;
@@ -16,14 +18,14 @@ public class MyPlayer : MonoBehaviour
     public bool isTransformed = false;
     bool isInteracting = false;
     MeshRenderer mesh;
-    public List<Sprite> trojanPics;
-    public List<Sprite> phishPics;
+    public List<GameObject> transformPics;
     public 
     float trojanF = 3;
     float phishF = 3;
     public GameObject sprite;
     float timer = 0;
     bool isPlaying = true;
+    float lives = 3;
     // Start is called before the first frame update
 
     void Start()
@@ -47,12 +49,12 @@ public class MyPlayer : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.E))
         {
-            transform.Rotate(0, 0.5f, 0);
+            transform.Rotate(0, 0.75f, 0);
             rb.rotation = transform.rotation;
         }
         else if (Input.GetKey(KeyCode.Q))
         {
-            transform.Rotate(0, -0.5f, 0);
+            transform.Rotate(0, -0.75f, 0);
             rb.rotation = transform.rotation;
         }
 
@@ -64,39 +66,23 @@ public class MyPlayer : MonoBehaviour
         {
             readInput();
         }
-
-        //if (Input.GetKey(KeyCode.P))
-        //{
-        //    StartCoroutine("capturedPlayer");
-        //}
         if (Input.GetKey(KeyCode.T))
         {
             StartCoroutine("transformPlayer");
+        }
+        if(Input.GetKeyDown(KeyCode.Home))
+        {
+            SceneManager.LoadScene(0);
         }
         if(isPlaying) timer += Time.deltaTime;
 
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.GetComponent<Interact>() != null && Input.GetKey(KeyCode.F) && !isInteracting)
-        {
-            other.GetComponent<Interact>().setCanvas(true);
-            isInteracting = true;
-        }
-        else
-        {
-            mesh.material = normalMaterial;
-            isInteracting = false;
-        }
-    }
-
-    //public bool getInteracting() { return isInteracting; }
-    //public void setInteracting(bool set) {  isInteracting = set; }
 
     void characterMovement(Vector3 move)
     {
-        rb.MovePosition((Vector3)transform.position + (rb.rotation*move) * Time.deltaTime * movementSpeed * 2);
+        //rb.MovePosition((Vector3)transform.position + (rb.rotation*move) * Time.deltaTime * movementSpeed * 2);
+        rb.velocity = (rb.rotation * move) * movementSpeed*2;
     }
 
     void readInput()
@@ -134,6 +120,7 @@ public class MyPlayer : MonoBehaviour
 
     public IEnumerator capturedPlayer()
     {
+        rb.velocity = Vector3.zero;
         isCaptured = true;
         yield return new WaitForSeconds(1);
         if (lastCheck != null)
@@ -141,18 +128,24 @@ public class MyPlayer : MonoBehaviour
         else
             transform.position = new Vector3(0,1,0);
         isCaptured = false;
-
+        lives -= 1;
+        if(lives < 0)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
     public IEnumerator transformPlayer()
     {
         if (!isTransformed)
         {
+            int pic = Random.Range(0, 3); 
             isTransformed = true;
             normal = false;
             if (isTransformed)
             {
                 trojanF--;
                 transform.tag = "Untagged";
+                sprite= transformPics[pic]; 
                 sprite.SetActive(true);
             }
 
