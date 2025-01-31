@@ -145,27 +145,29 @@ public class MyPlayer : MonoBehaviour
     }
     public IEnumerator transformPlayer()
     {
-
-        isTransformed = true;
-        normal = false;
-        if(isTransformed)
+        if (!isTransformed)
         {
-            trojanF--;
-            transform.tag = "Untagged";
-            sprite.SetActive(true);
+            isTransformed = true;
+            normal = false;
+            if (isTransformed)
+            {
+                trojanF--;
+                transform.tag = "Untagged";
+                sprite.SetActive(true);
+            }
+
+            mesh.material = Seethrough;
+
+
+            yield return new WaitForSeconds(5);
+
+            mesh.material = normalMaterial;
+            transform.tag = "Player";
+
+            isTransformed = false;
+            normal = true;
+            sprite.SetActive(false);
         }
-
-        mesh.material = Seethrough;
-
-
-        yield return new WaitForSeconds(5);
-        
-        mesh.material = normalMaterial;
-        transform.tag = "Player";
-
-        isTransformed = false;
-        normal = true;
-        sprite.SetActive(false);
 
     }
 
