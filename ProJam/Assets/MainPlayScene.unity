@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6302,7 +6302,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: 3f0c580804dee2845b03fca6115240ed, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -4037835300622433001, guid: b52b766ed123a2048a0d001baf065f4a, type: 3}
+      objectReference: {fileID: 3944571551897680237, guid: 3f0c580804dee2845b03fca6115240ed, type: 3}
     - target: {fileID: 919132149155446097, guid: 3f0c580804dee2845b03fca6115240ed, type: 3}
       propertyPath: m_Name
       value: MyPlayer
@@ -6394,7 +6394,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1997517235}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b52b766ed123a2048a0d001baf065f4a, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 775355e1487d60348a2b2b90b3fc6628, type: 3}
   m_Controller: {fileID: 9100000, guid: e7c7dd28477e68b4aa78ada53778a216, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
