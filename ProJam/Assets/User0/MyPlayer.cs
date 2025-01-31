@@ -145,7 +145,15 @@ public class MyPlayer : MonoBehaviour
 
         isTransformed = true;
         normal = false;
+        if(isTransformed)
+        {
+            trojanF--;
 
+        }
+        else
+        {
+            phishF--;
+        }
 
         mesh.material = Seethrough;
 
