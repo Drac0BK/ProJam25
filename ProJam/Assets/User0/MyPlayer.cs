@@ -21,7 +21,9 @@ public class MyPlayer : MonoBehaviour
     public 
     float trojanF = 3;
     float phishF = 3;
-
+    public GameObject sprite;
+    float timer = 0;
+    bool isPlaying = true;
     // Start is called before the first frame update
 
     void Start()
@@ -53,6 +55,7 @@ public class MyPlayer : MonoBehaviour
             transform.Rotate(0, -90, 0);
             rb.rotation = transform.rotation;
         }
+
     }
 
     void FixedUpdate()
@@ -70,6 +73,7 @@ public class MyPlayer : MonoBehaviour
         {
             StartCoroutine("transformPlayer");
         }
+        if(isPlaying) timer += Time.deltaTime;
 
     }
 
@@ -147,11 +151,8 @@ public class MyPlayer : MonoBehaviour
         if(isTransformed)
         {
             trojanF--;
-
-        }
-        else
-        {
-            phishF--;
+            transform.tag = "Untagged";
+            sprite.SetActive(true);
         }
 
         mesh.material = Seethrough;
@@ -160,9 +161,17 @@ public class MyPlayer : MonoBehaviour
         yield return new WaitForSeconds(5);
         
         mesh.material = normalMaterial;
+        transform.tag = "Player";
 
-        isTransformed= false;
+        isTransformed = false;
         normal = true;
+        sprite.SetActive(false);
 
+    }
+
+    public float SetIsPlaying(bool v)
+    {
+        isPlaying = v;
+        return timer;
     }
 }
