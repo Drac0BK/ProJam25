@@ -6,7 +6,7 @@ public class Laser : MonoBehaviour
 {
     MyPlayer m_myPlayer;
     public bool canTurnOff = false;
-    float m_Y = 100;
+    float m_Y = 1000;
     public float loopTimer = 1;
     float timer = 10;
     private void OnTriggerEnter(Collider other)

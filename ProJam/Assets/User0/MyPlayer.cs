@@ -57,7 +57,6 @@ public class MyPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(rb.rotation);
         if (!isCaptured)
         {
             readInput();
